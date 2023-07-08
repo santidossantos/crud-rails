@@ -9,7 +9,7 @@ class ProductsControllersTest < ActionDispatch::IntegrationTest
   end
 
   test "render a detailed product page" do
-    get product_path(products(:ps3))  # Busca un product del fixture
+    get product_path(products(:ps3))  # Busca un product del fixture, "products" es el .yml del fixture
 
     assert_response :success
     assert_select ".title", "PS3"    # Comparamos con el titulo renderizado del html
@@ -21,7 +21,7 @@ class ProductsControllersTest < ActionDispatch::IntegrationTest
     get new_product_path
 
     assert_response :success
-    assert_select "form"           # Cheuqeamos que haya una etiqueta form
+    assert_select "form"           # Chequeamos que haya una etiqueta form
   end
 
   test "allow to create a new product" do
@@ -34,6 +34,7 @@ class ProductsControllersTest < ActionDispatch::IntegrationTest
                         }
 
     assert_redirected_to products_path
+    assert_equal flash[:notice], "Tu producto se ha creado correctamente"
   end
 
   test "does not allow to create a new product with empty fields" do
@@ -44,6 +45,34 @@ class ProductsControllersTest < ActionDispatch::IntegrationTest
                             price: 45,
                           },
                         }
+
+    assert_response :unprocessable_entity
+  end
+
+  test "render an edit product form" do
+    get edit_product_path(products(:ps3))
+
+    assert_response :success
+    assert_select "form"
+  end
+
+  test "allow to update a product" do
+    patch product_path(products(:ps3).id), params: { # El .id se puede omitir, product es lo que esta en routes as product
+                                             product: {
+                                               price: 17979,
+                                             },
+                                           }
+
+    assert_redirected_to products_path
+    assert_equal flash[:notice], "Tu producto se ha actualizado correctamente"
+  end
+
+  test "does not allow to update a product" do
+    patch product_path(products(:ps3)), params: {
+                                          product: {
+                                            price: nil,
+                                          },
+                                        }
 
     assert_response :unprocessable_entity
   end
