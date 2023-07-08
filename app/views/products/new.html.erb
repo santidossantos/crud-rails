@@ -1,24 +1,23 @@
 <h1>Agregar Producto</h1>
-
 <%= form_with model: @product do |form| %>
-
+  <% @product.errors.full_messages.each do |error| %>
     <div>
-        <%= form.label :title %>
-        <%= form.text_field :title %>
+      <%= error %>
     </div>
-    
-    <div>
-         <%= form.label :description %>
-         <%= form.text_area :description %>
-    </div>
-       
-    <div>
-        <%= form.label :price %>
-        <%= form.number_field :price %>
-    </div>
-
-    <br/>
-
-    <%= form.submit %>
-
+  <% end %>
+  <br/>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div>
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+  <br/>
+  <%= form.submit %>
 <% end %>
