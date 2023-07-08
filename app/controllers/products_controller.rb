@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @products = Product.all.with_attached_photo # attached -> IMPORTANTE PARA TRAER LOS ATTACHED EN UNA SOLA CONSULTA
   end
 
   def show
@@ -39,12 +39,12 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.destroy
 
-    redirect_to products_path, notice: "Tu producto se ha eliminado correctamente"
+    redirect_to products_path, notice: "Tu producto se ha eliminado correctamente", status: :see_other
   end
 
   private
 
   def product_params # Metodo privado  para reutilizar codigo
-    params.require(:product).permit(:title, :description, :price)
+    params.require(:product).permit(:title, :description, :price, :photo)
   end
 end
