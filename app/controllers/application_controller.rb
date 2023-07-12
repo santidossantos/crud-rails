@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   private
 
   def locale_from_header
-    request.env["HTTP_ACCEPT_LANGUAGE"].scan(/^[a-z]{2}/).first
+    request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/).first
   end
 
-  # QUITAR TODO ESTO PARA QUE PASEN LOS TESTS...
+  # IMPORTANTE EL & -> es como if  request.env["HTTP_ACCEPT_LANGUAGE"] then  -> .scan(/^[a-z]{2}/).first
 end

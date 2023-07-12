@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :categories, except: :show
   #delete "/products/:id", to: "products#destroy"
   #patch "/products/:id", to: "products#update"
   #post "/products", to: "products#create"
