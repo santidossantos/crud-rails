@@ -45,6 +45,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params # Metodo privado  para reutilizar codigo
-    params.require(:product).permit(:title, :description, :price, :photo)
+    params.require(:product).permit(:title, :description, :price, :photo, :category_id)
   end
 end

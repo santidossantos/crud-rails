@@ -21,6 +21,9 @@
     <%= form.label :photo %>
     <%= form.file_field :photo %>
   </div>
+  <div>
+    <%= form.collection_select :category_id, Category.all.order(name: :asc), :id, :name %>
+  </div>
   <br/>
   <%= form.submit %>
 <% end %>
